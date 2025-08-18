@@ -1,6 +1,8 @@
 // Dashboard.tsx
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { motion } from "motion/react";
+
 
 interface DataPoint {
   name: string;
@@ -9,7 +11,7 @@ interface DataPoint {
 
 const initialData: DataPoint[] = [
   { name: 'Jan', uv: 400 },
-  { name: 'Feb', uv: 7300 },
+  { name: 'Feb', uv: 500 },
   { name: 'Mar', uv: 500 },
   { name: 'abr', uv: 500 },
   { name: 'may', uv: 500 },
@@ -37,7 +39,11 @@ const Dashboard: React.FC = () => {
       <h2>Dashboard Manipulável</h2>
 
       {/* Inputs para editar os valores */}
-      <div style={{ marginBottom: 20 }}>
+      <motion.div style={{ marginBottom: 20 }}
+              initial = {{ opacity:0, scale: 0.95 }}
+              animate = {{ opacity: 1, scale:1 }}
+              transition={{ duration: 0.5 }}
+            >
         {data.map((point, idx) => (
           <div key={point.name} style={{ marginBottom: 8 }}>
             <label style={{ marginRight: 8 }}>
@@ -51,16 +57,23 @@ const Dashboard: React.FC = () => {
             </label>
           </div>
         ))}
-      </div>
+      </motion.div>
+        
 
-      {/* Gráfico atualizado automaticamente */}
-      <LineChart width={600} height={300} data={data}>
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-      </LineChart>
+        <motion.div style={{ marginBottom: 20 }}
+            initial = {{ opacity:0, scale: 0.95 }}
+            animate = {{ opacity: 1, scale:1 }}
+            transition={{ duration: 0.5 }}
+        >   
+        {/* Gráfico atualizado automaticamente */}
+        <LineChart width={600} height={300} data={data}>
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+        </LineChart>
+      </motion.div>
     </div>
   );
 };
